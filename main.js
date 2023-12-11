@@ -20,50 +20,28 @@ let leftPressed = false;
 let upPressed = false;
 let downPressed = false;
 
-// Global variable
-// Global variables
-let gravity = 2;
-let maxJumps = 2; // Maximum number of jumps allowed
-let jumpCount = 0; // Counter for the number of jumps
-
-// Update function
-function update() {
-    // Simulate gravity on the player
-    if (!checkCollision(player.x, player.y + gravity)) {
-        player.y += gravity;
-    }
-
-    // Add jump functionality
-    // Assuming the up arrow key triggers the jump
-    document.addEventListener("keydown", function (e) {
-        if (e.code === "ArrowUp" && jumpCount < maxJumps) {
-            // Simulate the jump
-            if (!checkCollision(player.x, player.y - player.speed)) {
-                player.y -= player.speed * 2; // Adjust this value for jump height
-                jumpCount++;
-            }
-        }
-    });
-
-    // Update other objects as needed
-
-    // Continue with the rest of your update logic
-
-    requestAnimationFrame(update);
-}
-
-// Call the update function
-update();
-
-
-
-// Draw function
-// ... (Previous code remains unchanged)
 
 // Draw function
 window.addEventListener("load", draw);
 
 function draw() {
+    // Calculate the offset for the camera to follow the player
+    let cameraX = player.x - cnv.width / 2;
+    let cameraY = player.y - cnv.height / 2;
+
+    // Ensure the camera doesn't go out of bounds
+    if (cameraX < 0) {
+        cameraX = 0;
+    } else if (cameraX > cnv.width - player.w) {
+        cameraX = cnv.width - player.w;
+    }
+
+    if (cameraY < 0) {
+        cameraY = 0;
+    } else if (cameraY > cnv.height - player.h) {
+        cameraY = cnv.height - player.h;
+    }
+
     // Clear the canvas
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, cnv.width, cnv.height);
@@ -84,11 +62,11 @@ function draw() {
         player.y += player.speed;
         playerMoved = true;
     }
+    
 
     // Draw player
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.w, player.h);
-    
 
     // Draw and manage other objects
     for (let i = 0; i < objects.length; i++) {
@@ -169,8 +147,8 @@ function keyupHandler(e) {
 // Example: Adding objects to the array
 let obj1 = {
     x: 100,
-    y: 400,
-    w: 500,
+    y: 100,
+    w: 20,
     h: 20,
     color: "blue"
 };
