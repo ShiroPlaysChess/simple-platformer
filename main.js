@@ -68,12 +68,30 @@ let obj9 = {
     color: "blue"
 };
 
+let obj10 = {
+    x: 140,
+    y: 310,
+    w: 200,
+    h: 20,
+    color: "blue"
+};
+
+let obj11 = {
+    x: 440,
+    y: 240,
+    w: 200,
+    h: 20,
+    color: "blue"
+};
+
 objects.push(topWall);
 objects.push(bottomWall);
 objects.push(rightWall);
 objects.push(leftWall);
 objects.push(obj8);
 objects.push(obj9);
+objects.push(obj10);
+objects.push(obj11);
 
 
 let rightPressed = false;
