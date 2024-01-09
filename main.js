@@ -99,6 +99,8 @@ let leftPressed = false;
 let upPressed = false;
 let downPressed = false;
 let gravity = 0.5
+let jumps = 0 
+let previousUp
 
 
 // Draw function
@@ -107,6 +109,7 @@ window.addEventListener("load", draw);
 function draw() {
     // ---------------- LOGIC ---------------------
 
+    
     // Move Player Vertically
     player.gravitySpeed += gravity
     player.y += player.gravitySpeed
@@ -114,11 +117,20 @@ function draw() {
         checkCollision("down");
     } else {
         checkCollision("up");
-    }
+    } 
 
-    
 
-    // Move Player Horizontally
+    if(upPressed) {
+        if((previousUp === "no") & (jumps > 0)) {
+           player.gravity = 0.5
+           jumps -= 1
+        }
+        previousUp ="yes"
+   } else {
+       previousUp - "no"
+   }
+
+    // Move Player Horizontallys
     if (rightPressed) {
         player.x += player.speed;
         checkCollision("right");
@@ -161,6 +173,7 @@ function checkCollision(dir) {
             } else if (dir === "down") {
                 player.y = obj.y - player.h;
                 player.gravitySpeed = 0;
+                jumps = 1
             } else if (dir === "up") {
                 player.y = obj.y + obj.h;
                 player.gravitySpeed = 0;
